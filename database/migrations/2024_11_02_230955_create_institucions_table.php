@@ -20,6 +20,10 @@ return new class extends Migration
             $table->boolean('estado')->default(true);
             $table->date('fecha_actividad');
             $table->integer('servicio_id');
+            // Claves foráneas para los servicios, tipo de servicio y categoría
+            $table->foreignId('servicio_id')->constrained('servicios')->onDelete('cascade');
+            $table->foreignId('tipo_servicio_id')->constrained('tipo_servicios')->onDelete('cascade');
+            $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
              // Clave foránea para usuarios
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();

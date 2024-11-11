@@ -40,7 +40,7 @@ class RolesController extends Controller
         //$roles=Role::create($request->only('name'));
         $roles = Role::create($request->all());
         $roles->permissions()->sync($request->permisos);
-        return redirect()->route('roles_red.index')->with('registrado', 'si');
+        return redirect()->route('roles.index')->with('registrado', 'si');
     }
 
     /**

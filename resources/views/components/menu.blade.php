@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <div class="flex h-screen w-screen bg-gray-100" style="background: url({{ asset('imgs/fondo-colores.png') }})">
         <!-- Sidebar -->
         <div x-data="{ open: false, openSubMenu: false }" @mouseover="open = true" @mouseleave="open = false"
@@ -80,10 +80,16 @@
                         </div>
                     </div>
                 @endcan
-
+                @can('Dashboard')
+                    <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        <span class="text-base font-medium" x-show="open">Dashboard</span>
+                    </a>
+                @endcan
                 @can('Prestadores_servicio')
                     <!-- Enlaces del menú principal -->
-                    <a href="{{ route('prestadores_servicios.index') }}" class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
+                    <a href="{{ route('prestadores_servicios.index') }}"
+                        class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
                         <i class="fas fa-hands-helping"></i>
                         <span class="text-base font-medium" x-show="open">Prestadores de Servicio</span>
                     </a>
@@ -103,24 +109,32 @@
                     </a>
                 @endcan
                 @can('Categorias')
-                    <a href="{{-- route('categories.index') --}}" class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
+                    <a href="{{-- route('categories.index') " class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
                         <i class="fas fa-tags"></i>
                         <span class="text-base font-medium" x-show="open">Categorías</span>
                     </a>
                 @endcan
                 @can('Tipo_institucion')
-                    <a href="{{-- route('institutionTypes.index') --}}" class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
+                    <a href="{{-- route('institutionTypes.index') " class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
                         <i class="fas fa-building"></i>
                         <span class="text-base font-medium" x-show="open">Tipo de Institución</span>
                     </a>
                 @endcan
                 @can('Mis_instituciones')
-                    <a href="{{ route('establecimiento.index') }}" class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
+                    <a href="{{ route('establecimiento.index') }}"
+                        class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700">
                         <i class="fa-solid fa-plane"></i>
                         <span class="text-base font-medium" x-show="open">Mis Instituciones</span>
                     </a>
                 @endcan
-            </nav>
+                @can('Instituciones')
+                    <a href="{{ route('uestablecimientos.index') }}"
+                        class="flex items-center px-4 py-2 space-x-2 hover:bg-emerald-700 transition-colors duration-200 rounded-md text-xs">
+                        <i class="fa-solid fa-city"></i>
+                        <span class="text-base font-medium" x-show="open">Extablecimientos Turisticos</span>
+                    </a>
+                @endcan
+
         </div>
 
         <!-- Contenido principal -->
@@ -129,4 +143,9 @@
             {{ $slot }}
         </div>
     </div>
-</x-guest-layout>
+
+</x-guest-layout> --}}
+@extends('layouts.main-layout')
+@section('content')
+    {{ $slot }}
+@endsection

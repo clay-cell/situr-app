@@ -5,6 +5,8 @@
             Usuario <i class="fa-solid fa-user-plus mr-3"></i></a>
     </div>
     <x-busqueda />
+    <p>Buscando: {{ $search }}</p>
+
     <!-- Users Table -->
     <div class="overflow-x-auto bg-white rounded-lg shadow-md">
         <table class="min-w-full bg-white">

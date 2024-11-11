@@ -1,4 +1,3 @@
-<x-guest-layout>
     <x-menu>
         <!-- Título principal -->
         <div class="text-center my-6">
@@ -39,7 +38,7 @@
                             title="Nuevo Trámite">
                             <i class="fa-solid fa-plus mr-2"></i> Ver datos establecimiento
                         </a>
-                       
+
                     </div>
                 </div>
             @endforeach
@@ -55,4 +54,3 @@
             </div>
         @endif
     </x-menu>
-</x-guest-layout>

@@ -1,3 +1,4 @@
-<x-menu>
+ <x-menu>
     @livewire('lista-usuarios')
 </x-menu>
+

@@ -14,6 +14,9 @@ class TramitesController extends Controller
     {
         //
         $user = User::find($id);
+        if(!$user){
+            return view('error404');
+        }
         return view('tramites_realizados.mostrar_tramitesrealizados',compact('user'));
     }
 

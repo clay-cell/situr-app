@@ -41,24 +41,60 @@ class TramiteController extends Controller
     }
     public function show($eid, $tid)
     {
-        $user_id = Auth::user()->id;
-        $n_tramite = Tramite::where('user_id', Auth::user()->id)->first();
+      //return $eid." ".$tid;
+      /*$eliminarPDF = Presentado::select('ruta')
+      ->where('tramite_id',2)
+      ->where('pre_requisito_id',4)
+      ->get();*/
+
+      $user_id = Auth::user()->id;
+        //$tramite = Tramite::where('user_id', Auth::user()->id)->first();
+        $tramite = Tramite::where('id', $tid)->first();
+        //return $tramite;
         //buscando la relacion entre el usuario y el establecimiento;
         $n_establecimiento = Institucion::where('id', $eid)->where('user_id', $user_id)->count();
         if ($n_establecimiento == 0) {
             return view('error404');
         }
         $establecimiento = Institucion::select('id', 'nombre', 'telefono', 'email', 'servicio_id')
+        ->where('id', $eid)->get();
+        //return $establecimiento;
+        $servicio = Servicio::select('id', 'tipo_servicio')->where('id', $establecimiento[0]->servicio_id)->get();
+        //return $establecimiento[0]->nombre;
+        //return $n_tramite;
+        $titulo='Registro de requisitos';
+        //return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'n_tramite','titulo'));
+        return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'tramite','titulo'));
+    }
+
+    public function revisar_tramite($eid, $tid)
+    {
+        //return $eid.$tid;
+        $tramite = Tramite::where('id', $tid)->first();
+        //return $tramite;
+        $establecimiento = Institucion::select('id', 'nombre', 'telefono', 'email', 'servicio_id')
             ->where('id', $eid)->get();
         $servicio = Servicio::select('id', 'tipo_servicio')->where('id', $establecimiento[0]->servicio_id)->get();
         //return $establecimiento[0]->nombre;
         //return $n_tramite;
-        return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'n_tramite'));
+        $titulo = 'Revision de requisitos';
+        return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'tramite', 'titulo'));
     }
-    
-    
-    
-    public function subirdoc(Request $request)
+
+    public function show_new()
+    {
+        return view('tramites.tramites_ingresados');
+    }
+    public function show_process()
+    {
+        return view('tramites.tramites_proceso');
+    }
+    public function show_finished()
+    {
+        return view('tramites.tramites_culminados');
+    }
+
+    /*public function subirdoc(Request $request)
     {
         try {
             //code...
@@ -111,5 +147,5 @@ class TramiteController extends Controller
             //return view('error404')->with($e->validator);
             //return redirect()->back()->withErrors($e->validator)->withInput();
         }
-    }
+    }*/
 }
