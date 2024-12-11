@@ -16,9 +16,7 @@ class TipoTramite extends Model
   ];
 
   //Relacion de uno a muchos
-  public function tramites(){
-    return $this->hasMany('App\Models\Tramite');
-  }
+  
   public function requisitos(){
     return $this->hasMany('App\Models\Requisito');
   }

@@ -104,69 +104,99 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                      Servicio
+                        Servicio
                     </th>
 
                     <th scope="col" class="px-6 py-3">
-                      Habilitado
+                        Habilitado
                     </th>
                     <th scope="col" class="px-2 py-2">
                         Ver tramites
-                        </th>
+                    </th>
                     <th scope="col" class="px-6 py-3">
-                      Actualizar
+                        Actualizar
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Tipo Institucion
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Sanciones
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($servicios as $servicio)
                     <tr class="text-xs bg-white border-b ">
-                        <th scope="row"
-                            class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                        <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
                             {{ $servicio->tipo_servicio }}
                         </th>
-                        {{--<td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{-- <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $servicio->estado }}
-                        </td>--}}
+                        </td> --}}
                         <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                          @if ($servicio->estado==1)
-                            <label class="inline-flex items-center cursor-pointer">
-                              <input type="checkbox" value="" class="sr-only peer" checked>
-                              <div wire:click="estado('{{ $servicio->id }}','{{ $servicio->estado }}')"
-                                  class="relative w-11 h-6 bg-gray-200 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600">
-                              </div>
-                            </label>
-                          @else
-                            <label class="inline-flex items-center mb-5 cursor-pointer">
-                              <input type="checkbox" value="" class="sr-only peer">
-                              <div wire:click="estado('{{ $servicio->id }}','{{ $servicio->estado }}')"
-                                  class="relative w-11 h-6 bg-gray-200 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600">
-                              </div>
-                            </label>
-                          @endif
+                            @if ($servicio->estado == 1)
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" value="" class="sr-only peer" checked>
+                                    <div wire:click="estado('{{ $servicio->id }}','{{ $servicio->estado }}')"
+                                        class="relative w-11 h-6 bg-gray-200 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600">
+                                    </div>
+                                </label>
+                            @else
+                                <label class="inline-flex items-center mb-5 cursor-pointer">
+                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <div wire:click="estado('{{ $servicio->id }}','{{ $servicio->estado }}')"
+                                        class="relative w-11 h-6 bg-gray-200 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600">
+                                    </div>
+                                </label>
+                            @endif
                         </td>
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                             @if ($servicio->estado == 1)
-                              <a href="{{route('requisitos.show',$servicio->id)}}" class="text-sm md:text-sm lg:text-base font-semibold bg-green-500 hover:bg-green-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100">
-                                <i class="fa-solid fa-eye"></i>
-                              </a>
-
+                                <a href="{{ route('requisitos.show', $servicio->id) }}"
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-green-500 hover:bg-green-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
                             @else
-                              <a href="" style="pointer-events: none;" class="text-sm md:text-sm lg:text-base font-semibold bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100">
-                                 <i class="fa-solid fa-eye"></i>
-                              </a>
+                                <a href="" style="pointer-events: none;"
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
                             @endif
-                          </td>
+                        </td>
                         <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
                             @if ($servicio->estado == 1)
-                            <button wire:click="recupera('{{ $servicio->id }}')"
-                                class="text-sm md:text-sm lg:text-base font-semibold bg-orange-500 hover:bg-orange-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
-                                    class="fa-regular fa-pen-to-square"></i></button>
-                          @else
-                          <button
-                            class="text-sm md:text-sm lg:text-base font-semibold bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
-                                class="fa-regular fa-pen-to-square"></i></button>
-                          @endif
+                                <button wire:click="recupera('{{ $servicio->id }}')"
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-orange-500 hover:bg-orange-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
+                                        class="fa-regular fa-pen-to-square"></i></button>
+                            @else
+                                <button
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
+                                        class="fa-regular fa-pen-to-square"></i></button>
+                            @endif
+
+                        </td>
+                        <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                            @if ($servicio->estado == 1)
+                                <a href=" {{-- route('sanciones_servicio.index',$servicio->id) --}}"
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-emerald-500 hover:bg-emerald-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
+                                        class="fas fa-balance-scale"></i></a>
+                            @else
+                                <a href=""
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
+                                        class="fas fa-balance-scale"></i></a>
+                            @endif
+
+                        </td>
+                        <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
+                            @if ($servicio->estado == 1)
+                                <a href=" {{ route('sanciones_servicio.index',$servicio->id) }}"
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-emerald-500 hover:bg-emerald-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
+                                        class="fas fa-balance-scale"></i></a>
+                            @else
+                                <a href=""
+                                    class="text-sm md:text-sm lg:text-base font-semibold bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100"><i
+                                        class="fas fa-balance-scale"></i></a>
+                            @endif
 
                         </td>
                     </tr>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Presentado extends Model
 {
   use HasFactory;
-   //Relacion de muchos a uno
+  
    protected $fillable = [
     'gestion',
     'fecha_presentacion',
@@ -17,12 +17,15 @@ class Presentado extends Model
     'ruta',
     'aceptado',
     'tramite_id',
-    'pre_requisito_id',
+    'item_prerequisito_id',
   ];
-  public function pre_requisitos(){
-    return $this->belongsTo('App\Models\PreRequisito');
-  }
-  public function tramites(){
+
+  //Relacion de muchos a uno
+   public function tramites(){
     return $this->belongsTo('App\Models\Tramite');
   }
+   public function item_prerequisitos(){
+    return $this->belongsTo('App\Models\ItemPreRequisito');
+  }
+  
 }

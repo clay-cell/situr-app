@@ -202,7 +202,7 @@
                     <th>Total</th>
                 </tr>
             </thead>
-            <tbody>
+            {{-- <tbody>
                 <tr>
                     <td>1</td>
                     <td>Timbres</td>
@@ -230,7 +230,33 @@
                     <td colspan="4"><strong>Total</strong></td>
                     <td><strong>35,00</strong></td>
                 </tr>
+            </tfoot> --}}
+            <tbody>
+                @php
+                    $cant = 1;
+                    $total = 0; // Inicializar la variable para la suma total
+                @endphp
+                @foreach ($tasas as $tasa)
+                    <tr>
+                        <td>{{ $cant }}</td>
+                        <td>{{ $tasa->name }}</td>
+                        <td>N/A</td>
+                        <td>{{ $tasa->monto_fijo }}</td>
+                        <td>{{ $tasa->monto_fijo }}</td>
+                        @php
+                            $total += $tasa->monto_fijo; // Acumular el monto fijo
+                            $cant++;
+                        @endphp
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4"><strong>Total</strong></td>
+                    <td><strong>{{ $total }}</strong></td>
+                </tr>
             </tfoot>
+
         </table>
 
         <!-- Footer Section -->
@@ -245,12 +271,12 @@
                 width="740px" height="20px">
         </div>
     </div>
-    <div style="margin-top: 280px">
+    <div style="margin-top: 300px">
         <div class="container">
             <!-- Header Section -->
             <div class="header">
-                <img src="{{ public_path('imgs/escudococha.png') }}" alt="Gobierno Autónomo Departamental de Cochabamba"
-                    class="left-image">
+                <img src="{{ public_path('imgs/escudococha.png') }}"
+                    alt="Gobierno Autónomo Departamental de Cochabamba" class="left-image">
                 <div class="title" style="">
                     <p>ORDEN DE TRABAJO</p>
                     <p class="red-text">COPIA UNIDAD</p>
@@ -274,7 +300,8 @@
                     </thead>
                     <tbody>
                         <tr style="border-block-color: black ; border: 1">
-                            <td>{{ ' ' . $user->name . ' ' . $user->primer_apellido . ' ' . $user->segundo_apellido }}</td>
+                            <td>{{ ' ' . $user->name . ' ' . $user->primer_apellido . ' ' . $user->segundo_apellido }}
+                            </td>
                             <td>{{ $user->cedula }}</td>
                             <td>{{ $fechahora }}</td>
                             <td>{{ $masfecha }}</td>
@@ -295,7 +322,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {{-- <tr>
                         <td>1</td>
                         <td>Timbres</td>
                         <td>3</td>
@@ -315,12 +342,29 @@
                         <td>1</td>
                         <td>15,00</td>
                         <td>15,00</td>
-                    </tr>
+                    </tr> --}}
+                    @php
+                        $cant = 1;
+                        $total = 0; // Inicializar la variable para la suma total
+                    @endphp
+                    @foreach ($tasas as $tasa)
+                        <tr>
+                            <td>{{ $cant }}</td>
+                            <td>{{ $tasa->name }}</td>
+                            <td>N/A</td>
+                            <td>{{ $tasa->monto_fijo }}</td>
+                            <td>{{ $tasa->monto_fijo }}</td>
+                            @php
+                                $total += $tasa->monto_fijo; // Acumular el monto fijo
+                                $cant++;
+                            @endphp
+                        </tr>
+                    @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="4"><strong>Total</strong></td>
-                        <td><strong>35,00</strong></td>
+                        <td><strong>{{ $total }}</strong></td>
                     </tr>
                 </tfoot>
             </table>

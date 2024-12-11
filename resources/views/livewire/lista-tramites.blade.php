@@ -71,3 +71,4 @@
         {{ $tramites_realizados->links() }}
     </div> <!-- Paginación -->
 </div>
+

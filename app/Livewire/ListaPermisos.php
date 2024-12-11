@@ -66,7 +66,7 @@ class ListaPermisos extends Component
         $permiso = Permission::find($permisoId);
         if ($permiso) {
             $permiso->delete();
-            $this->dispatchBrowserEvent('confirmacion', 'Se eliminó correctamente');
+            $this->dispatch('confirmacion', 'Se eliminó correctamente');
         } else {
             session()->flash('error', 'Permiso no encontrado para eliminar.');
         }

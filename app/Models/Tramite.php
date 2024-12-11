@@ -14,16 +14,20 @@ class Tramite extends Model
   public function presentados(){
     return $this->hasMany('App\Models\Presentado');
   }
+  
 
 
   //Relacion de muchos a uno
+  public function users(){
+    return $this->belongsTo('App\Models\User');
+  }
   public function institucions(){
     return $this->belongsTo('App\Models\Institucion');
   }
   public function servicios(){
     return $this->belongsTo('App\Models\Servicio');
   }
-  public function tipo_tramites(){
-    return $this->belongsTo('App\Models\TipoTramite');
+  public function requisitos(){
+    return $this->belongsTo('App\Models\Requisito');
   }
 }

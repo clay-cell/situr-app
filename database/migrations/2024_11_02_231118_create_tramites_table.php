@@ -23,8 +23,10 @@ return new class extends Migration
             $table->foreignId('institucion_id')->constrained('institucions')->onDelete('cascade');
             // Clave foránea para servicio
             $table->foreignId('servicio_id')->constrained('servicios')->onDelete('cascade');
-             // Clave foránea para tipo_tramite
-             $table->foreignId('tipotramite_id')->constrained('tipo_tramites')->onDelete('cascade');
+            // Clave foránea para requisitos
+            $table->foreignId('requisito_id')->constrained('requisitos')->onDelete('cascade');
+            // Clave foránea para tipo_tramite
+            //$table->foreignId('tipotramite_id')->constrained('tipo_tramites')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -135,7 +135,7 @@
                     <tr class="text-xs bg-white border-b">
                         <th scope="row"
                             class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap">
-                            {{ $requisito->tramite }}
+                            {{ $requisito->nombre_tramite }}
                         </th>
                         <th scope="row"
                             class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap">

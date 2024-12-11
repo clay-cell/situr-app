@@ -24,4 +24,8 @@ class ExternosController extends Controller
         $institucion=Institucion::find($id);
         return view('externos.mostrar_clientesestablecimiento',compact('institucion'));
     }
+    public function busqueda_rapida(){
+        //$institucion=Institucion::find($id);
+        return view('externos.busqueda_rapida');
+    }
 }

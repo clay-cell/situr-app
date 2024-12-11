@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between mb-6">
         <!-- visualizando al modal de mostrar -->
         <button wire:click="mostrar"
-            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
             type="button">
             <i class="fa-solid fa-plus"></i> Nuevo tramite
         </button>
@@ -12,12 +12,12 @@
     <x-dialog-modal wire:model="visualizar">
         <x-slot name="title">
             <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                <h3 class="text-xl font-semibold text-gray-900 ">
                     Datos nuevo tramite
                 </h3>
                 <button type="button" wire:click="ocultar"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center ">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -57,12 +57,12 @@
     <x-dialog-modal wire:model="visualiza_actualizar">
         <x-slot name="title">
             <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                <h3 class="text-xl font-semibold text-gray-900 ">
                     Actualizar datos servicio
                 </h3>
                 <button type="button" wire:click="ocultar_actualizar"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center >
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -100,8 +100,8 @@
 
 
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>
                     <th scope="col" class="px-2 py-2">
                         Tramite
@@ -112,7 +112,7 @@
                     <th scope="col" class="px-2 py-2">
                       Habilitado
                     </th>
-                   
+
                     <th scope="col" class="px-2 py-2">
                       Actualizar
                     </th>
@@ -120,13 +120,13 @@
             </thead>
             <tbody>
                 @foreach ($tipotramite as $tramite)
-                    <tr class="text-xs bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="text-xs bg-white border-b ">
                         <th scope="row"
-                            class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
                             {{ $tramite->nombre_tramite }}
                         </th>
-                        
-                        <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                        <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
                             @if ($tramite->estado == 1)
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" value="" class="sr-only peer" checked>
@@ -143,16 +143,16 @@
                                 </label>
                             @endif
                         </td>
-                        
-                        <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+
+                        <td class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap ">
                           @if ($tramite->estado == 1)
                             <button wire:click="recupera('{{ $tramite->id }}')" class="text-sm md:text-sm lg:text-base font-semibold bg-orange-500 hover:bg-orange-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100">
-                            <i class="fa-regular fa-pen-to-square"></i></button>    
+                            <i class="fa-regular fa-pen-to-square"></i></button>
                           @else
                             <button class="text-sm md:text-sm lg:text-base font-semibold bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 mt-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-100">
-                            <i class="fa-regular fa-pen-to-square"></i></button>  
+                            <i class="fa-regular fa-pen-to-square"></i></button>
                           @endif
-                            
+
                         </td>
                     </tr>
                 @endforeach

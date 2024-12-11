@@ -9,12 +9,13 @@ use Livewire\Component;
 class ListaRequisitos extends Component
 {
 
-  public $visualizar=false;  
+  public $visualizar=false;
   public $visualiza_actualizar=false;
   public $seleccion_tramite=1;
   public $descripcion="";
   public $servicioId;
   public $id;
+  public $nombre_sancion="";
 
 
   public function mostrar(){
@@ -24,7 +25,7 @@ class ListaRequisitos extends Component
     $this->visualizar=false;
   }
 
-  
+
   public function mount($servicio_id){
     $this->servicioId=$servicio_id;
   }
@@ -38,7 +39,7 @@ class ListaRequisitos extends Component
   public function recupera($id){
     $this->id=$id;
     $requisito=Requisito::find($id);
-    $this->descriocion=$requisito->descripcion;
+    $this->descripcion=$requisito->descripcion;
     $this->visualiza_actualizar=true;
   }
   public function registrar(){
@@ -57,7 +58,8 @@ class ListaRequisitos extends Component
   }
 
   public function render(){
-    $requisitos=Requisito::select('id','tramite','descripcion','estado')
+    $requisitos=Requisito::select('requisitos.id','requisitos.descripcion','requisitos.estado','tipo_tramites.nombre_tramite')
+    ->leftJoin('tipo_tramites','requisitos.tipo_tramite_id','tipo_tramites.id')
     ->where('servicio_id',$this->servicioId)
     ->get();
     $tipo_tramites=TipoTramite::select('id','nombre_tramite')

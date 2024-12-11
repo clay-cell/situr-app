@@ -20,7 +20,7 @@ class ListaClientes extends Component
     }
     public function render()
     {
-        $clientes = Cliente::select('clientes.*', 'institucion_clientes.fecha_ingreso', 'institucion_clientes.fecha_salida', 'institucion_clientes.hora_entrada', 'institucion_clientes.hora_salida')
+        $clientes = Cliente::select('clientes.*', 'institucion_clientes.fecha_ingreso', 'institucion_clientes.fecha_salida', 'institucion_clientes.hora_entrada', 'institucion_clientes.hora_salida','institucion_clientes.id as institucion_clientes_id')
             ->leftJoin('institucion_clientes', 'clientes.id', 'institucion_clientes.cliente_id')
             ->where('institucion_clientes.institucion_id', $this->institucion_id) // Filtro por institucion_id
             ->where('clientes.identificacion', 'like', '%' . $this->search . '%') // Filtro por identificación

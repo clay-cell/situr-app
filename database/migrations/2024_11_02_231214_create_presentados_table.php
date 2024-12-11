@@ -21,8 +21,8 @@ return new class extends Migration
             $table->boolean('aceptado')->default(false);
             //llave foranea para tramites
             $table->foreignId('tramite_id')->constrained('tramites');
-            //llave foranea para pre_requisitos
-            $table->foreignId('pre_requisito_id')->constrained('pre_requisitos');
+            //llave foranea para item_prerequisitos
+            $table->foreignId('item_prerequisito_id')->constrained('item_prerequisitos');
             $table->timestamps();
         });
     }

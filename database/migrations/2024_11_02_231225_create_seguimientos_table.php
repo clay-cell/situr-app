@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('fecha_inicio');
             $table->date('fecha_fin')->nullable();
+            $table->date('fecha_plazo')->nullable();
             $table->text('observacion');
             $table->string('instancia',200);
             $table->foreignId('tramite_id')->constrained('tramites')->onDelete('cascade');

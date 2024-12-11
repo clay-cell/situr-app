@@ -65,9 +65,9 @@
                 </div>
                 <p class="text-gray-800 uppercase text-center text-lg font-bold">Sistema de Registro, Categorización y
                     Certificación - SRCC</p>
-                <div class="w-56 h-32 flex items-center justify-center bg-white overflow-hidden rounded-lg shadow-md">
+                {{-- <div class="w-56 h-32 flex items-center justify-center bg-white overflow-hidden rounded-lg shadow-md">
                     <img src="{{ asset('imgs/logo.png') }}" alt="Logo" class="object-contain w-full h-full">
-                </div>
+                </div> --}}
             </div>
 
             <!-- Right Side: Login Form -->
@@ -120,7 +120,7 @@
                 </p>
             @endauth
             <p class="text-gray-400 text-justify text-sm">Nota.- Ingrese con su CORREO Y CONTRASEÑA, que le fueron
-                enviados a su correo electrónico, para iniciar su registro SIRETUR.</p>
+                enviados a su correo electrónico, para iniciar su registro SITUR.</p>
         </div>
     </div>
 </div>
@@ -129,7 +129,7 @@
     // SweetAlert2 popup with custom animation and styling
     Swal.fire({
         title: "¡Bienvenido al sistema!",
-        text: "En caso de ser la primera vez que ingresa, por favor cree su cuenta SIRETUR.",
+        text: "En caso de ser la primera vez que ingresa, por favor cree su cuenta SITUR.",
         icon: "info",
         confirmButtonText: "OK",
         confirmButtonColor: "#1d4ed8",

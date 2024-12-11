@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->boolean('estado')->default(true);
             $table->date('fecha_actividad');
+            $table->string('qr')->nullable(); // Campo para almacenar la URL del QR
+            $table->string('enlace')->nullable(); // Campo para almacenar la URL del QR
             $table->integer('servicio_id');
             // Claves foráneas para los servicios, tipo de servicio y categoría
             $table->foreignId('servicio_id')->constrained('servicios')->onDelete('cascade');

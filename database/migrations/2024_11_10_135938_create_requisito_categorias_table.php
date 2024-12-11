@@ -10,8 +10,9 @@ class CreateRequisitoCategoriasTable extends Migration
     {
         Schema::create('requisito_categorias', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo',4);
             $table->string('nombre');
-            $table->string('categorizacion'); // Ejemplo: 1 Estrella, etc.
+            $table->integer('categoria_id'); // Ejemplo: 1 Estrella, etc.
             $table->timestamps();
         });
     }

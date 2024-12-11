@@ -1,17 +1,20 @@
 <div x-data="ListaPermisos()" class="p-6 bg-gray-50 rounded-lg shadow-lg container">
-    <div class="flex justify-between items-center" x-data="{ modal: null }" @confirmacion.window="modal = null">
-        <h1 class="text-3xl font-semibold text-gray-800">
+    <div class="flex flex-col sm:flex-row justify-between items-center" x-data="{ modal: null }" @confirmacion.window="modal = null">
+        <!-- Título Responsivo -->
+        <h1 class="text-3xl font-semibold text-gray-800 mb-4 sm:mb-0 sm:text-4xl flex-1">
             Lista de Permisos
-            <i class="fas fa-shield-alt text-gray-600"></i>
+            <i class="fas fa-shield-alt text-gray-600 ml-2"></i>
         </h1>
-        <button @click="modal = 'registrar'" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+
+        <!-- Botón Responsivo -->
+        <button @click="modal = 'registrar'" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm sm:text-base">
             Agregar Permiso <i class="fas fa-plus ml-2"></i>
         </button>
 
         <!-- Registration Modal -->
         <div x-show="modal === 'registrar'"
             class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50" x-cloak>
-            <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/3 p-6">
+            <div class="bg-white rounded-lg shadow-lg w-11/12 sm:w-10/12 md:w-1/3 lg:w-1/4 p-6">
                 <h2 class="text-xl font-semibold text-gray-700 mb-4">Registrar Permiso</h2>
                 <form wire:submit.prevent="registrar">
                     <input type="text" wire:model="permiso.name" placeholder="Nombre del permiso"
@@ -28,6 +31,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- Table and Search Bar -->
     <div class="my-4">
@@ -134,13 +139,13 @@
                 closeModal() {
                     this.modal = null;
                 },
-                confirmDelete(id) {
+                /*confirmDelete(id) {
                     if (confirm('¿Seguro que deseas eliminar este permiso?') && id) {
                         Livewire.dispatch('delete', {
                             id
                         });
                     }
-                }
+                }*/
             }
         }
 
@@ -163,11 +168,14 @@
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.dispatch('deleteConfirmed', permisoId); // Pass the ID directly
+                    // Emitir el evento a Livewire
+                    Livewire.dispatch('deleteConfirmed', {permisoId}); // Emite el evento 'deleteConfirmed' con el permisoId
                 }
             });
         }
     </script>
+
+
 
 
 </div>

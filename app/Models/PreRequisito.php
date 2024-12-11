@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PreRequisito extends Model
 {
   use HasFactory;
+  
   //Relacion de uno a muchos
-  public function presentados(){
-    return $this->hasMany('App\Models\Presentado');
+  public function item_prerequisitos(){
+    return $this->hasMany('App\Models\ItemPrerequisito');
   }
   
   //Relacion de muchos a uno

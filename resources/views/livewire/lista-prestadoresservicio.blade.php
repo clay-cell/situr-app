@@ -2,7 +2,7 @@
     {{-- The best athlete wants his opponent at his best. --}}
     <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Lista Prestadores de Servicios</h2>
 
-   <x-busqueda/>
+    <x-busqueda />
 
     <!-- Contenedor de tarjetas -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -10,7 +10,10 @@
             <div x-data="{ open: false }"
                 class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
                 <!-- Imagen de la solicitud -->
-                <div class="h-40 bg-cover bg-center" style="background-image: url('{{ $solicitud->foto }}')"></div>
+                <div class="h-40 bg-cover bg-center"
+                    style="background-image: url('{{ $solicitud->profile_photo_path ? asset($solicitud->profile_photo_path) : asset('imgs/subirfoto.jpg') }}')">
+                </div>
+
 
                 <!-- Información principal -->
                 <div class="p-4 space-y-2">
@@ -20,7 +23,10 @@
                         </a>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800">
-                        {{ $solicitud->nombres }} {{ $solicitud->primer_apellido }} {{ $solicitud->segundo_apellido }}
+                        {{ $solicitud->name }} {{ $solicitud->primer_apellido }} {{ $solicitud->segundo_apellido }}
+                    </h3>
+                    <h3 class="text-lg font-semibold text-gray-800">
+                        {{ $solicitud->nombre }}
                     </h3>
                     <p class="text-sm text-gray-600"><strong>Cédula:</strong> {{ $solicitud->cedula }}
                         {{ $solicitud->extension }}</p>
@@ -45,15 +51,10 @@
                         @else
                             <p><strong>Sexo:</strong> MUJER </p>
                         @endif
-                        <p><strong>Carta de solicitud:</strong>
-                            <a href="{{ $solicitud->carta_solicitud }}" target="_blank"
-                                class="inline-flex items-center gap-2 bg-gray-600 text-white p-2 rounded-lg shadow-md hover:bg-gray-500">
-                                <i class="fa-regular fa-file-pdf"></i> Ver carta
-                            </a>
-                        </p>
                         <p class="text-right mt-2">
-                            <a href="{{ route('tramites_realizados.index',$solicitud->id)  }}" class="bg-blue-600 text-white p-2 rounded-lg shadow-md hover:bg-blue-500">
-                                Ver Tramites <i class="fa-solid fa-check"></i>
+                            <a href="{{ route('tramites_realizados.index', $solicitud->id) }}"
+                                class="bg-blue-600 text-white p-2 rounded-lg shadow-md hover:bg-blue-500">
+                                Ver Intituciones <i class="fa-solid fa-check"></i>
                             </a>
                         </p>
                     </div>
@@ -67,4 +68,3 @@
         {{ $solicitudes->links() }}
     </div>
 </div>
-

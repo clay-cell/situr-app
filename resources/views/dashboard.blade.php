@@ -29,6 +29,9 @@
             </div>
         </header>
 
+
+    </div>
+    @if (auth()->user()->hasRole('Administrador') || auth()->user()->hasRole('Tecnico'))
         <!-- Dashboard Content -->
         <main class="h-full p-6 bg-gray-50">
             <!-- Stats Section -->
@@ -70,6 +73,75 @@
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+            <div class="p-6 bg-gray-100 min-h-screen">
+                @if (auth()->user()->hasRole('Administrador') || auth()->user()->hasRole('Tecnico'))
+                    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                        <!-- Header -->
+                        <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+                            <h2 class="text-2xl font-bold">Licencias</h2>
+                        </div>
+                        <!-- Table Container -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse text-left">
+                                <!-- Table Head -->
+                                <thead class="bg-blue-100 text-gray-700">
+                                    <tr>
+                                        <th class="px-6 py-3 border-b text-sm font-semibold">N°</th>
+                                        <th class="px-6 py-3 border-b text-sm font-semibold">Institución</th>
+                                        <th class="px-6 py-3 border-b text-sm font-semibold">Fecha Emitido</th>
+                                        <th class="px-6 py-3 border-b text-sm font-semibold">Fecha Vencimiento</th>
+                                        <th class="px-6 py-3 border-b text-sm font-semibold">Días Restantes</th>
+                                        <th class="px-6 py-3 border-b text-sm font-semibold">Acción</th>
+                                    </tr>
+                                </thead>
+                                <!-- Table Body -->
+                                <tbody class="divide-y divide-gray-200" x-data="{ hoverRow: null }">
+                                    @php $cont = 1; @endphp
+                                    @foreach ($licencias as $item)
+                                        @php
+                                            $fecha_vencimiento = \Carbon\Carbon::parse($item->fecha_vencimiento);
+                                            $dias_restantes = $fecha_vencimiento->diffInDays(today());
+                                        @endphp
+                                        <tr class="hover:bg-blue-50" @mouseover="hoverRow = {{ $loop->index }}"
+                                            @mouseleave="hoverRow = null"
+                                            :class="{ 'bg-gray-50': hoverRow === {{ $loop->index }} }">
+                                            <td class="px-6 py-3">{{ $cont }}</td>
+                                            <td class="px-6 py-3">{{ $item->nombre }}</td>
+                                            <td class="px-6 py-3">{{ $item->fecha_emision }}</td>
+                                            <td class="px-6 py-3">{{ $item->fecha_vencimiento }}</td>
+                                            <td class="px-6 py-3">
+                                                <span
+                                                    class="@if ($dias_restantes <= 7) text-yellow-500 font-semibold
+                                                            @else text-green-600 font-medium @endif">
+                                                    {{ $dias_restantes }} días
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-3">
+                                                <button class="text-blue-600 hover:text-blue-800 focus:outline-none">
+                                                    <i class="fa-solid fa-paper-plane"></i> Notificar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @php $cont++; @endphp
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Footer -->
+                        <div class="p-4 bg-gray-50 text-gray-600 text-center">
+                            <p x-data="{ count: {{ $licencias->count() }} }" x-text="'Total de registros: ' + count"></p>
+                        </div>
+                    </div>
+                @else
+                    <div class="text-center py-10">
+                        <p class="text-red-600 text-xl font-medium">No tienes permisos para esta sección.</p>
+                    </div>
+                @endif
+            </div>
+        @else
+            <p>No tienes permisos para esta sección.</p>
+    @endif
+    </main>
+
+
 </x-menu>

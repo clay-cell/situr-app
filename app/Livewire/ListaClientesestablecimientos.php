@@ -17,6 +17,8 @@ class ListaClientesestablecimientos extends Component
     public $searchPaterno = '';
     public $searchMaterno = '';
     public $mostrar_nregistros = 10;
+    public $searchFechaIngreso = '';
+    public $searchFechaSalida = '';
 
     public function mount($institucion_id = null)
     {
@@ -44,6 +46,12 @@ class ListaClientesestablecimientos extends Component
             })
             ->when($this->searchMaterno, function ($query) {
                 $query->where('clientes.materno', 'like', '%' . $this->searchMaterno . '%');
+            })
+            ->when($this->searchFechaIngreso, function ($query) {
+                $query->whereDate('institucion_clientes.fecha_ingreso', $this->searchFechaIngreso);
+            })
+            ->when($this->searchFechaSalida, function ($query) {
+                $query->whereDate('institucion_clientes.fecha_salida', $this->searchFechaSalida);
             })
             ->paginate($this->mostrar_nregistros);
 

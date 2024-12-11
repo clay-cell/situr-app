@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('pre_requisitos', function (Blueprint $table) {
             $table->id();
-            $table->string('grupo',200);
             $table->string('descripcion',500);
             $table->boolean('estado')->default(true);
             // Clave foránea para requisitos

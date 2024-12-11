@@ -42,6 +42,17 @@
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                     @error('expedido') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                 </div>
+                <!-- Nacionalidad -->
+                <div>
+                    <label for="expedido" class="block text-sm font-medium text-gray-700">Nacionalidad</label>
+                   <select name="pais_id" id="pais_id"  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    <option value="" selected disabled>Seleccione un Pais</option>
+                    @foreach ($pais as $item)
+                        <option value="{{ $item->id }}">{{ $item->pais }}</option>
+                    @endforeach
+                   </select>
+                    @error('expedido') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                </div>
 
                 <!-- Fecha de ingreso -->
                 <div>

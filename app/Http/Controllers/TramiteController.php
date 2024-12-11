@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Institucion;
 use App\Models\Presentado;
-/*use App\Models\TipoTramite;
 use App\Models\Requisito;
-use App\Models\PreRequisito;*/
+use App\Models\Seguimiento;
+use App\Models\TipoTramite;
 use App\Models\Tramite;
 use App\Models\Servicio;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB; //
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
@@ -18,38 +19,54 @@ class TramiteController extends Controller
 {
     public function create($eid, $tid)
     {
-        //return $eid.' '.$tid;}
+        //return $eid.' '.$tid;
         //return Crypt::decrypt($eid).' '.Crypt::decrypt($tid);
+
         $user_id = Auth::user()->id;
         //buscando la relacion entre el usuario y el establecimiento;
         $n_establecimiento = Institucion::where('id', $eid)->where('user_id', $user_id)->count();
-        if ($n_establecimiento == 0) {
+        $busqueda_tipotramite = TipoTramite::where('id', $tid)->count();
+        $tipotramite = TipoTramite::where('id', $tid)->first();
+        if ($n_establecimiento == 0 || $busqueda_tipotramite == 0) {
             return view('error404');
         }
         $establecimiento = Institucion::select('id', 'nombre', 'telefono', 'email', 'servicio_id')
             ->where('id', $eid)->get();
         $servicio = Servicio::select('id', 'tipo_servicio')->where('id', $establecimiento[0]->servicio_id)->get();
+        //return $servicio;
+        $requisito = Requisito::select('id')->where('tipo_tramite_id', $tid)->where('servicio_id', $servicio[0]->id)->get();
         //return $establecimiento[0]->nombre;
-        $datosTramite = new Tramite();
-        $datosTramite->fecha_inicio = Carbon::now()->format('Y-m-d');
-        $datosTramite->user_id = Auth::user()->id;
-        $datosTramite->servicio_id = $establecimiento[0]->servicio_id;
-        $datosTramite->institucion_id = $establecimiento[0]->id;
-        $datosTramite->tipotramite_id = $tid;
-        $datosTramite->save();
-        return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid'));
+        $ntramite = Tramite::where('estado', 0)->where('institucion_id', $eid)->where('servicio_id', $servicio[0]->id)->where('requisito_id', $requisito[0]->id)->count();
+        //return $ntramite;
+        if ($ntramite == 0) {
+            $datosTramite = new Tramite();
+            $datosTramite->fecha_inicio = Carbon::now()->format('Y-m-d');
+            $datosTramite->observacion = 'ingresado';
+            $datosTramite->user_id = Auth::user()->id;
+            $datosTramite->servicio_id = $establecimiento[0]->servicio_id;
+            $datosTramite->institucion_id = $establecimiento[0]->id;
+            $datosTramite->tipotramite_id = $tipotramite->id;
+            $datosTramite->requisito_id = $requisito[0]->id;
+            $datosTramite->save();
+        }
+        $titulo = 'Registro de requisitos';
+        $tramite = Tramite::select('id')->where('estado', 0)->where('institucion_id', $eid)->where('servicio_id', $servicio[0]->id)->where('requisito_id', $requisito[0]->id)->get();
+        //return $tramite;
+        return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'titulo', 'tramite'));
     }
     public function show($eid, $tid)
     {
-      //return $eid." ".$tid;
-      /*$eliminarPDF = Presentado::select('ruta')
-      ->where('tramite_id',2)
-      ->where('pre_requisito_id',4)
-      ->get();*/
+        //return $eid." ".$tid;
+        /*$presentados=Presentado::select('item_prerequisito_id','observacion')
+      ->where('tramite_id',9)
+      ->get();
+        return $presentados;*/
 
-      $user_id = Auth::user()->id;
+
+        $user_id = Auth::user()->id;
         //$tramite = Tramite::where('user_id', Auth::user()->id)->first();
-        $tramite = Tramite::where('id', $tid)->first();
+        //$tramite = Tramite::where('id', $tid)->first();
+
         //return $tramite;
         //buscando la relacion entre el usuario y el establecimiento;
         $n_establecimiento = Institucion::where('id', $eid)->where('user_id', $user_id)->count();
@@ -57,26 +74,41 @@ class TramiteController extends Controller
             return view('error404');
         }
         $establecimiento = Institucion::select('id', 'nombre', 'telefono', 'email', 'servicio_id')
-        ->where('id', $eid)->get();
+            ->where('id', $eid)->get();
         //return $establecimiento;
         $servicio = Servicio::select('id', 'tipo_servicio')->where('id', $establecimiento[0]->servicio_id)->get();
         //return $establecimiento[0]->nombre;
-        //return $n_tramite;
-        $titulo='Registro de requisitos';
-        //return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'n_tramite','titulo'));
-        return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'tramite','titulo'));
+        //return $servicio;
+        $titulo = 'Registro de requisitos';
+        $requisito = Requisito::select('id')->where('tipo_tramite_id', $tid)->where('servicio_id', $servicio[0]->id)->get();
+        //return $requisito;
+        $tramite = Tramite::select('id')
+            ->where('estado', 0)->where('institucion_id', $eid)
+            ->where('servicio_id', $servicio[0]->id)
+            ->where('requisito_id', $requisito[0]->id)
+            ->get();
+        //return $tramite;
+        return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'tramite', 'titulo'));
     }
 
     public function revisar_tramite($eid, $tid)
     {
         //return $eid.$tid;
-        $tramite = Tramite::where('id', $tid)->first();
+        //$tramite = Tramite::where('id', $tid)->first();
         //return $tramite;
         $establecimiento = Institucion::select('id', 'nombre', 'telefono', 'email', 'servicio_id')
             ->where('id', $eid)->get();
         $servicio = Servicio::select('id', 'tipo_servicio')->where('id', $establecimiento[0]->servicio_id)->get();
         //return $establecimiento[0]->nombre;
         //return $n_tramite;
+        $requisito = Requisito::select('id')->where('tipo_tramite_id', $tid)->where('servicio_id', $servicio[0]->id)->get();
+        //return $requisito;
+        $tramite = Tramite::select('id')
+            ->where('estado', 0)->where('institucion_id', $eid)
+            ->where('servicio_id', $servicio[0]->id)
+            ->where('requisito_id', $requisito[0]->id)
+            ->get();
+        //return $tramite;
         $titulo = 'Revision de requisitos';
         return view('tramites.registrar_requisitos', compact('establecimiento', 'servicio', 'eid', 'tid', 'tramite', 'titulo'));
     }
@@ -93,59 +125,34 @@ class TramiteController extends Controller
     {
         return view('tramites.tramites_culminados');
     }
-
-    /*public function subirdoc(Request $request)
+    public function seguimiento_tramite($eid, $ttid)
     {
-        try {
-            //code...
-            // Validar el archivo que se está subiendo
-            $request->validate([
-                'requisito_id' => 'required',
-                'tramite_id' => 'required',
-                'descripcion' => 'required',
-                'documento' => 'required|file|mimes:pdf', // Validar que sea un archivo PDF y que no exceda los 2MB
-            ]);
-
-            // Crear una nueva instancia del modelo Presentado
-            $presentados = new Presentado();
-
-            // Asignar valores a los campos del modelo
-            $presentados->gestion = Carbon::now()->year;
-            $presentados->fecha_presentacion = now(); // O la fecha que necesites
-            $presentados->documento = $request->descripcion; // Esto puede ser una descripción o nombre del archivo
-            //$presentados->ruta = ''; // Inicialmente vacío, lo asignaremos más adelante
-            $presentados->aceptado = 0;
-            $presentados->tramite_id = $request->tramite_id;
-            $presentados->pre_requisito_id = $request->requisito_id;
-
-            // Manejar la subida del archivo
-           // Handle carta_solicitud upload if provided
-          // Manejar la subida del archivo
-        if ($request->hasFile('documento') && $request->file('documento')->isValid()) {
-            $file = $request->file('documento');
-            // Generar el nombre del archivo
-            $descripcionLimpia = preg_replace('/[^A-Za-z0-9]/', '', $request->descripcion); // Elimina todo excepto letras y números
-            $filename = $descripcionLimpia . '_' . $request->tramite_id . '.' . $file->getClientOriginalExtension();
-
-            // Definir la carpeta de destino en public/pdf
-            $destination = public_path('pdf');
-            // Mover el archivo a la carpeta destino
-            $file->move($destination, $filename);
-            // Guardar la ruta relativa en el modelo
-            $presentados->ruta = 'pdf/' . $filename;
-        } else {
-            $presentados->ruta = null;
+        //return $eid.$ttid;
+        $tipotramite = TipoTramite::where('id', $ttid)->first();
+        $establecimiento = Institucion::select('id', 'nombre', 'telefono', 'email', 'servicio_id')
+            ->where('id', $eid)->get();
+        $servicio = Servicio::select('id', 'tipo_servicio')->where('id', $establecimiento[0]->servicio_id)->get();
+        $requisito = Requisito::select('id')->where('tipo_tramite_id', $ttid)->where('servicio_id', $servicio[0]->id)->get();
+        $tramite = Tramite::select('id')
+            ->where('estado', 0)->where('institucion_id', $eid)
+            ->where('servicio_id', $servicio[0]->id)
+            ->where('requisito_id', $requisito[0]->id)
+            ->get();
+        //return $tramite;
+        $titulo = 'Seguimiento de tramite';
+        $seguimiento = Seguimiento::select('id', 'fecha_inicio', 'observacion', 'instancia', 'fecha_fin')
+            ->where('tramite_id', $tramite[0]->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        //return $seguimiento;
+        return view('tramites.tramites_seguimiento', compact('establecimiento', 'servicio', 'eid', 'ttid', 'tramite', 'titulo', 'seguimiento'));
+    }
+    public function documentos_tramite($tramite_id)
+    {
+        $tramites = Tramite::find($tramite_id);
+        if (!$tramites) {
+            return view('error404');
         }
-
-            // Guardar el modelo en la base de datos
-            $presentados->save();
-
-            // Retornar una respuesta o redirigir a una vista
-            return redirect()->back()->with('success',"Exito!!!!");
-        } catch (ValidationException $e) {
-            return $e;
-            //return view('error404')->with($e->validator);
-            //return redirect()->back()->withErrors($e->validator)->withInput();
-        }
-    }*/
+        return view('documento_tramites.subir_documentos', compact('tramites'));
+    }
 }

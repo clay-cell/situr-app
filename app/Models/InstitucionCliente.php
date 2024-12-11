@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InstitucionCliente extends Model
 {
+
     //
     //Relacion de muchos a uno
     public function users()

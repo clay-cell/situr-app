@@ -12,6 +12,9 @@ class Requisito extends Model
    public function pre_requisitos(){
     return $this->hasMany('App\Models\PreRequisito');
   }
+  public function tramites(){
+    return $this->hasMany('App\Models\Tramite');
+  }
 
   //Relacion de muchos a uno
   public function servicios(){

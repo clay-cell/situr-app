@@ -41,7 +41,7 @@
 
                         <!-- Step 1: Configuración de cuenta -->
                         <div x-show="currentStep === 1">
-                            <h2 class="text-2xl font-bold text-gray-700 mb-4">Crea tu cuenta SIRETUR</h2>
+                            <h2 class="text-2xl font-bold text-gray-700 mb-4">Crea tu cuenta SITUR</h2>
                             <p class="text-sm text-gray-500 mb-6">Por favor, complete la información de cuenta.</p>
 
                             <!-- Departamento -->

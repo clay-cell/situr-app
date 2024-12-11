@@ -29,11 +29,11 @@ class ListaTipoTramite extends Component
     TipoTramite::create([
       "nombre_tramite"=>mb_strtoupper($this->nombre_tramite, 'UTF-8')
     ]);
-    $this->nombre_servicio="";
+    $this->nombre_tramite="";
     $this->visualizar=false;
-    //$this->emit('confirmacion','Se registro correctamente');  
+    //$this->emit('confirmacion','Se registro correctamente');
   }
-  
+
   public function mostrar_actualizar(){
     $this->visualiza_actualizar=true;
   }

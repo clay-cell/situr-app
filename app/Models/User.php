@@ -68,4 +68,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function institucion()
+    {
+        return $this->belongsTo(Institucion::class);
+    }
 }

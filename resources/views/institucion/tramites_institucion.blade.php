@@ -24,7 +24,7 @@
             </a>
 
             <!-- Card: Registrar Clientes -->
-            <a href="{{ route('clientes.show', $establecimiento->id) }}"
+            <a href="{{ route('clientes.show', $establecimiento[0]->id) }}"
                 class="group relative bg-white shadow-md rounded-lg p-6 w-full md:w-1/4 flex flex-col items-center transition duration-300 transform hover:scale-105 hover:shadow-xl"
                 @mouseover="hoveredCard = 'clientes'" @mouseleave="hoveredCard = null">
 
@@ -48,7 +48,7 @@
 
         <div>
             <div>
-                <h2 class="text-xl font-semibold mb-2 text-center uppercase">{{ $establecimiento->nombre }}</h2>
+                <h2 class="text-xl font-semibold mb-2 text-center uppercase">{{ $establecimiento[0]->nombre }}</h2>
             </div>
             <div>
                 @if ($n_tramites == 0)
@@ -72,7 +72,7 @@
                                     <td class="border border-slate-300 px-2">{{ $item->nombre_tramite }}</td>
                                     <td class="border border-slate-300">
                                         @if ($item->id == 1)
-                                            <a href="{{ route('requisitosTramite', [$establecimiento->servicio_id, $item->id]) }}"
+                                            <a href="{{ route('requisitosTramite', [$establecimiento[0]->servicio_id, $item->id]) }}"
                                                 target="_blank"
                                                 class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105"><i
                                                     class="fa-regular fa-file-pdf"></i></a>{{-- requisitoa en pdf --}}
@@ -84,7 +84,7 @@
                                     </td>
                                     <td class="border border-slate-300">
                                         @if ($item->id == 1)
-                                            <a href="{{ route('tramite.create', [$establecimiento->id, $item->id]) }}"
+                                            <a href="{{ route('tramite.create', [$establecimiento[0]->id, $item->id]) }}"
                                                 class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105"><i
                                                     class="fa-solid fa-plus mr-2"></i></a>{{-- empieza tramite nuevo --}}
                                         @else
@@ -127,11 +127,11 @@
                                     <td class="border border-slate-300 px-2">{{ $item->nombre_tramite }}</td>
                                     <td class="border border-slate-300">
                                         @if ($tramites_pendientes > 0)
-                                            @if ($item->id == $tramite[0]->tipotramite_id)
-                                                <a href="{{ route('requisitosTramite', [$establecimiento->servicio_id, $item->id]) }}"
+                                            @if ($item->id == $requisito[0]->tipo_tramite_id)
+                                                <a href="{{ route('requisitosTramite', [$establecimiento[0]->servicio_id, $item->id]) }}"
                                                     target="_blank"
                                                     class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
-                                                    <i class="fa-regular fa-file-pdf"></i>
+                                                    <i class="fa-regular fa-file-pdf"></i>{{--reporte--}}
                                                 </a>
                                             @else
                                                 <a href="#"
@@ -146,7 +146,7 @@
                                                     <i class="fa-regular fa-file-pdf"></i>
                                                 </a>
                                             @else
-                                                <a href="{{ route('requisitosTramite', [$establecimiento->servicio_id, $item->id]) }}"
+                                                <a href="{{ route('requisitosTramite', [$establecimiento[0]->servicio_id, $item->id]) }}"
                                                     target="_blank"
                                                     class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
                                                     <i class="fa-regular fa-file-pdf"></i></a>
@@ -155,10 +155,10 @@
                                     </td>
                                     <td class="border border-slate-300">
                                         @if ($tramites_pendientes > 0)
-                                            @if ($item->id == $tramite[0]->tipotramite_id)
-                                                <a href="{{ route('tramite.show', [$establecimiento->id, $tramite[0]->id]) }}"
+                                            @if ($item->id == $requisito[0]->tipo_tramite_id)
+                                                <a href="{{ route('tramite.show', [$establecimiento[0]->id,  $item->id]) }}"
                                                     class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
-                                                    <i class="fa-solid fa-plus mr-2"></i>
+                                                    <i class="fa-solid fa-plus mr-2"></i>{{--$establecimiento[0]->id.' '. $item->id--}}
                                                 </a>
                                             @else
                                                 <a href=""
@@ -173,7 +173,7 @@
                                                     <i class="fa-solid fa-plus mr-2"></i>
                                                 </a>
                                             @else
-                                                <a href="{{ route('tramite.show', [$establecimiento->id, $tramite[0]->id]) }}"
+                                                <a href="{{ route('tramite.show', [$establecimiento[0]->id,  $item->id]) }}"
                                                     class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
                                                     <i class="fa-solid fa-plus mr-2"></i>
                                                 </a>
@@ -182,11 +182,15 @@
                                     </td>
                                     <td class="border border-slate-300">
                                         @if ($tramites_pendientes > 0)
-                                            @if ($item->id == $tramite[0]->tipotramite_id)
-                                                <a href="{{ route('seguimientoTramite', [$tramite[0]->servicio_id, $item->id, $tramite[0]->id]) }}"
+                                            @if ($item->id == $requisito[0]->tipo_tramite_id)
+                                                {{--<a href="{{ route('seguimientoTramite', [$tramite[0]->servicio_id, $item->id, $tramite[0]->id]) }}"
                                                     target="_blank"
                                                     class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
-                                                    <i class="fa-solid fa-eye"></i>sdfgdfhgfdsh
+                                                    <i class="fa-solid fa-eye"></i>seguimiento
+                                                </a>--}}
+                                                <a href="{{ route('tramite.view', [$establecimiento[0]->id,  $item->id]) }}"
+                                                    class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
+                                                    <i class="fa-solid fa-eye"></i>
                                                 </a>
                                             @else
                                                 <a href=""
@@ -201,9 +205,13 @@
                                                     <i class="fa-solid fa-eye"></i>
                                                 </a>
                                             @else
-                                                <a href="{{ route('tramite.show', [$establecimiento->id, $tramite[0]->id]) }}"
+                                                {{--<a href="{{ route('seguimientoTramite', [$tramite[0]->servicio_id, $item->id, $tramite[0]->id]) }}"
                                                     class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
                                                     <i class="fa-solid fa-eye"></i>
+                                                </a>--}}
+                                                <a href="{{ route('tramite.view', [$establecimiento[0]->id,  $item->id]) }}"
+                                                    class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-2 py-2 m-4 my-2 rounded-md shadow-md transition-transform transform hover:scale-105">
+                                                    <i class="fa-solid fa-eye"></i>222
                                                 </a>
                                             @endif
                                         @endif

@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Institucion;
+use App\Models\Tramite;
+use App\Models\User;
 use Livewire\Component;
-use App\Models\solicitud_usuario;
 use Livewire\WithPagination;
 
 class ListaPrestadoresservicio extends Component
@@ -14,12 +16,9 @@ class ListaPrestadoresservicio extends Component
 
     public function render()
     {
-        $solicitudes = solicitud_usuario::select('*', 'users.id as user_id')
-    ->leftJoin('users', 'solicitud_usuarios.cedula', '=', 'users.cedula')
-    ->where('solicitud_usuarios.estado', true)
-    ->where('solicitud_usuarios.cedula', 'like', '%' . $this->search . '%') // especificar la tabla para `cedula`
-    ->paginate($this->mostrar_nregistros);
+        $solicitudes =User::role('Contribuyente')
+            ->paginate($this->mostrar_nregistros);
 
-        return view('livewire.lista-prestadoresservicio',compact('solicitudes'));
+        return view('livewire.lista-prestadoresservicio', compact('solicitudes'));
     }
 }

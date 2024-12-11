@@ -3,48 +3,10 @@
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold text-gray-800">Lista de Clientes de {{ $institucion->nombre }}</h2>
     </div>
-
-    <div class="mt-4 space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6">
-        <div>
-            <label for="search1" class="block text-sm font-medium text-gray-700">Buscar por Identificación:</label>
-            <div class="relative">
-                <input type="text" id="search1" wire:model="searchIdentificacion" class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10" placeholder="Buscar por identificación">
-                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-            </div>
-        </div>
-
-        <div>
-            <label for="search2" class="block text-sm font-medium text-gray-700">Buscar por Nombre:</label>
-            <div class="relative">
-                <input type="text" id="search2" wire:model="searchNombre" class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10" placeholder="Buscar por nombre">
-                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-            </div>
-        </div>
-
-        <div>
-            <label for="search3" class="block text-sm font-medium text-gray-700">Buscar por Apellido Paterno:</label>
-            <div class="relative">
-                <input type="text" id="search3" wire:model="searchPaterno" class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10" placeholder="Buscar por apellido paterno">
-                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-            </div>
-        </div>
-
-        <div>
-            <label for="search4" class="block text-sm font-medium text-gray-700">Buscar por Apellido Materno:</label>
-            <div class="relative">
-                <input type="text" id="search4" wire:model="searchMaterno" class="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 pl-10" placeholder="Buscar por apellido materno">
-                <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-            </div>
-        </div>
-
-        <div class="sm:col-span-2 flex justify-start">
-            <button wire:click="buscarClientes" class="bg-green-600 text-gray-50 hover:bg-green-500 hover:text-white rounded-md shadow-md px-3 py-2">
-                Buscar
-            </button>
-        </div>
-    </div>
-
-
+    <x-buscar_clientes/>
+    {{-- <div>
+        <a href="" class="bg-gray-800 text-gray-50">Ocupacion</a>
+    </div> --}}
     <div class="flex flex-col md:flex-row mt-6 space-y-4 md:space-y-0 md:space-x-6">
         <!-- Tabla de clientes -->
         <div class="flex-1 overflow-x-auto bg-white shadow rounded-lg">
