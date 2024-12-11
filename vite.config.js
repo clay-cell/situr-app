@@ -11,4 +11,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        // The outDir should be set to your public directory
+        outDir: 'public/build',
+    },
+    server: {
+        https: true, // Asegúrate de habilitar HTTPS si estás en desarrollo.
+    },
+u
 });
